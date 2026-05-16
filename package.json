@@ -1,0 +1,18 @@
+{
+  "name": "fv-booklet",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev book",
+    "build": "vitepress build book",
+    "preview": "vitepress preview book"
+  },
+  "devDependencies": {
+    "markdown-it-container": "^4.0.0",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-mathjax3": "^4.3.2",
+    "mermaid": "^11.6.0",
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-mermaid": "^2.0.17"
+  }
+}
