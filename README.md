@@ -1,10 +1,10 @@
-# duckweed
+# highground
 
 [![license: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![zig](https://img.shields.io/badge/zig-study-orange.svg)
 ![booklet](https://img.shields.io/badge/booklet-VitePress-blue.svg)
 
-duckweed is a Zig project for studying formal verification and model checking
+highground is a Zig project for studying formal verification and model checking
 through small, runnable models.
 
 The early project combines two tracks:
