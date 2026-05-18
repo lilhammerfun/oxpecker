@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "duckweed",
+      "name": "highground",
       "devDependencies": {
         "markdown-it-container": "^4.0.0",
         "markdown-it-footnote": "^4.0.0",

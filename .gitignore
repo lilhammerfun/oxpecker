@@ -143,7 +143,7 @@ vite.config.ts.timestamp-*
 .vite/
 
 # Zig
-# duckweed's long-term core is a Zig formal verification project.
+# highground's long-term core is a Zig formal verification project.
 .zig-cache/
 zig-cache/
 zig-out/
