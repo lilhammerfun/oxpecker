@@ -42,7 +42,11 @@ Pnueli 1977 年的 “The Temporal Logic of Programs” 是 formal verification 
 created -> running -> cancelled -> completed
 ```
 
-这条线回答的问题是：在我给定的有限模型里，是否存在一条路径违反性质？它非常适合早期学习 state、transition、reachable state、invariant 和 counterexample trace。
+这里的每个节点都是一个 state：任务先被创建，随后运行，接着进入取消语义，最后又被完成事件改写成 completed。箭头是 transition，表示模型允许系统从一个状态走到下一个状态。只要这条路径能从 initial state 出发走出来，`completed` 就是 reachable state。
+
+如果规格写的是“任务一旦 cancelled，就不能再 completed”，那么这条路径就是反例。它不是说真实系统一定每次都这样运行，而是说在当前模型允许的迁移规则下，存在一条执行路径会违反 invariant。模型检查回答的问题正是：在我给定的有限模型里，是否存在一条路径违反性质？
+
+这种反馈适合早期学习 state、transition、reachable state、invariant 和 counterexample trace，因为每个词都能落到这条线上：`created`、`running`、`cancelled`、`completed` 是 state；箭头是 transition；能走到的节点是 reachable state；“cancelled 后不能 completed” 是 invariant；整条错误路径就是 counterexample trace。
 
 ## 符号方法
 
