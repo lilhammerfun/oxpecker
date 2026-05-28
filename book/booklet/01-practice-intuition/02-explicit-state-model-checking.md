@@ -111,7 +111,7 @@ while (head < nodes.items.len) : (head += 1) {
 if (!invariant(node.state)) {
     const trace = try buildTrace(allocator, nodes.items, head);
     return .{ .violated = .{
-        .states_explored = nodes.items.len,
+        .states_explored = head + 1,
         .trace = trace,
     } };
 }
@@ -165,7 +165,7 @@ while (head < nodes.items.len) : (head += 1) {
     if (!invariant(node.state)) {
         const trace = try buildTrace(allocator, nodes.items, head);
         return .{ .violated = .{
-            .states_explored = nodes.items.len,
+            .states_explored = head + 1,
             .trace = trace,
         } };
     }
