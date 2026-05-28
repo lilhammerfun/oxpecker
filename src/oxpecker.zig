@@ -135,7 +135,7 @@ pub fn check(
                 const trace = try buildTrace(State, Event, allocator, nodes.items, head);
                 return .{ .violated = .{
                     .invariant_name = invariant.name,
-                    .states_explored = nodes.items.len,
+                    .states_explored = head + 1,
                     .trace = trace,
                 } };
             }

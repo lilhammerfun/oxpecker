@@ -93,7 +93,7 @@ pub fn check(allocator: std.mem.Allocator, model: Model) !CheckResult {
         if (!invariant(node.state)) {
             const trace = try buildTrace(allocator, nodes.items, head);
             return .{ .violated = .{
-                .states_explored = nodes.items.len,
+                .states_explored = head + 1,
                 .trace = trace,
             } };
         }

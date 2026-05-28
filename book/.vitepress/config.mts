@@ -45,7 +45,14 @@ function registerContainer(md: any, name: string, defaultTitle: string) {
   })
 }
 
-const siteBase = process.env.VITEPRESS_BASE ?? '/'
+function normalizeBase(value: string | undefined): string {
+  if (!value) return '/'
+
+  const withLeadingSlash = value.startsWith('/') ? value : `/${value}`
+  return withLeadingSlash.endsWith('/') ? withLeadingSlash : `${withLeadingSlash}/`
+}
+
+const siteBase = normalizeBase(process.env.VITEPRESS_BASE)
 
 const zhNav = [
   { text: 'Booklet', link: '/booklet/' },
