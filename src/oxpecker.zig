@@ -53,6 +53,8 @@ pub fn CheckResult(comptime State: type, comptime Event: type) type {
         pub fn deinit(self: @This(), allocator: std.mem.Allocator) void {
             switch (self) {
                 .holds => {},
+                // State values inside trace steps are copied model values.
+                // The checker only owns the trace array allocation.
                 .violated => |violation| allocator.free(violation.trace),
             }
         }
@@ -206,7 +208,7 @@ fn buildTrace(
 fn validateState(comptime State: type) void {
     switch (@typeInfo(State)) {
         .@"struct", .@"union", .@"enum", .int, .bool => {},
-        else => @compileError("Oxpecker State must be a finite value type, but found " ++ @typeName(State)),
+        else => @compileError("Oxpecker State must be a copyable model state type, but found " ++ @typeName(State)),
     }
 }
 
