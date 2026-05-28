@@ -1,11 +1,13 @@
 {
-  "name": "highground",
+  "name": "oxpecker",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vitepress dev book",
     "build": "vitepress build book",
-    "preview": "vitepress preview book"
+    "preview": "vitepress preview book",
+    "zig:run": "zig build run",
+    "zig:test": "zig build test"
   },
   "devDependencies": {
     "markdown-it-container": "^4.0.0",

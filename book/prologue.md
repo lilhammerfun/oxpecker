@@ -4,7 +4,7 @@
 
 普通测试很擅长验证人已经想到的路径，但系统错误经常藏在没有手动挑出来的路径里。一个 task 被 cancel 后又 completed，一个 payment callback 和 timeout 同时到达，一个 worker pool 在 queue 非空时停住，这些错误并不是因为某一行代码看起来复杂，而是因为系统允许多个事件以不同顺序发生。
 
-本书会从这类工程问题开始，逐步引入 state、transition、reachable state、invariant、counterexample trace、deadlock、liveness、fairness 和 state explosion。TLA+、Alloy、SMT、Kani、Lean 等工具会作为参照出现，但它们不是一开始要掌握的目标。更重要的是先建立一个判断框架：什么问题适合建模，模型里应该保留哪些状态，性质应该怎样表达，工具输出的反例意味着什么。
+本书会从这类工程问题开始，逐步引入 state、transition、reachable state、invariant、counterexample trace、deadlock、liveness、fairness 和 state explosion。主线实践会优先用 Zig 完成：我们自己写小模型、检查器接口和反例反馈。TLA+、Alloy、SMT、Kani、Lean 等成熟工具会作为参照出现，但它们不是前置要求，也不是本书早期的学习目标。
 
 ## 阅读方式
 
@@ -12,7 +12,7 @@
 
 ## 实践方式
 
-Formal verification 不能只靠阅读建立直觉。读者可以用 TLA+ 写小规格，用 Alloy 表达关系约束，用 SMT solver 解小约束，也可以自己写一个 explicit-state model checker 来观察状态空间。具体工具可以变化，但练习目标保持一致：把真实系统问题压缩成有限模型，检查模型允许的所有行为，再用反例回到系统设计。
+Formal verification 不能只靠阅读建立直觉。本书的默认实践方式是用 Zig 写出可运行的小模型和最小 explicit-state model checker，直接观察状态空间、性质检查和反例轨迹。成熟工具可以作为对照和后续扩展，但练习目标保持一致：把真实系统问题压缩成有限模型，检查模型允许的所有行为，再用反例回到系统设计。
 
 | 线索 | 作用 |
 |---|---|
