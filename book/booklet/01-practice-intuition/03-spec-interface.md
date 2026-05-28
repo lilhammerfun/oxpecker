@@ -79,7 +79,7 @@ comptime {
 fn validateState(comptime State: type) void {
     switch (@typeInfo(State)) {
         .@"struct", .@"union", .@"enum", .int, .bool => {},
-        else => @compileError("Oxpecker State must be a finite value type, but found " ++ @typeName(State)),
+        else => @compileError("Oxpecker State must be a copyable model state type, but found " ++ @typeName(State)),
     }
 }
 
@@ -91,7 +91,11 @@ fn validateEvent(comptime Event: type) void {
 }
 ```
 
-`@typeInfo(State)` 会在编译期拿到 `State` 的类型信息。现在 Oxpecker 允许 `State` 是 `struct`、`union`、`enum`、整数或布尔值，因为这些类型可以作为有限状态值保存下来，再交给 `state_eql` 判断是否相等。其他类型先拒绝掉，比如函数、指针、slice、optional 等，因为它们很容易把“状态值”变成对外部内存或运行时对象的引用，初学阶段会让模型边界变得不清楚。
+`@typeInfo(State)` 会在编译期拿到 `State` 的类型信息。现在 Oxpecker 允许 `State` 是 `struct`、`union`、`enum`、整数或布尔值，因为这些类型可以作为模型状态值保存下来，再交给 `state_eql` 判断是否相等。
+
+这里有一个很重要的边界：当前 `validateState` 只检查顶层类型，并不会递归检查 `struct` 或 `union` 的每个字段。换句话说，库要求调用方把 `State` 设计成非 owning、可复制、可比较的模型状态值。检查器会把 `State` 复制到内部队列和反例轨迹里，`CheckResult.deinit` 只释放检查器分配的 trace 数组，不会深度释放 `State` 里的字段。
+
+所以，教学阶段最推荐的 `State` 是由 `enum`、`bool`、小整数和这些字段组成的简单 `struct`。如果把指针、slice 或拥有外部资源的对象放进 `State`，Zig 类型系统不一定会在这里阻止你，但模型边界会变得不清楚，反例轨迹也不再只是一个独立的状态快照。
 
 `Event` 目前只允许 enum。原因是检查器需要把每一步动作标记成一个明确事件，并在反例轨迹里输出。enum 的取值集合天然是有限的，也适合表达 `start_tool_call`、`cancel`、`tool_result` 这种动作标签。
 
